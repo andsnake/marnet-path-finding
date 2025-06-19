@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  sea-routing-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sea-routing-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app/app
+      - ./data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+
+  # Optional: If you want to add a database later
+  # postgis:
+  #   image: postgis/postgis:15-3.3
+  #   container_name: postgis
+  #   environment:
+  #     POSTGRES_USER: user
+  #     POSTGRES_PASSWORD: pass
+  #     POSTGRES_DB: maritime
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - pgdata:/var/lib/postgresql/data
+  #   restart: unless-stopped
+
+# Optional volumes for PostGIS persistence
+# volumes:
+#   pgdata:
