@@ -1,4 +1,4 @@
-To speed up booting, its better to first run preprocess_network.py
+Before running the service its better to first run preprocess_network.py
 This will load the geojson network and process it into a .pkl graph file that is then loaded on web service start up. 
 This speeds up the start up time of the web service.
 
