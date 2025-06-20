@@ -4,7 +4,7 @@ import math
 from fastapi import FastAPI, Query
 from app.graph_loader import load_graph_and_kdtree
 from app.routing import find_shortest_path
-from app.routing import haversine_heuristic
+from app.routing import wrapped_haversine
 
 app = FastAPI()
 #graph, kdtree, node_coords = load_graph_and_kdtree("data/maritime_network.geojson")
@@ -51,7 +51,7 @@ def route(
     try:
         path_nodes = nx.astar_path(
             graph, start_node, end_node,
-            heuristic=lambda a, b: haversine_heuristic(a[0], a[1], b[0], b[1]),
+            heuristic=lambda a, b: wrapped_haversine(a[0], a[1], b[0], b[1]),
             weight="weight"
         )
     except nx.NetworkXNoPath:
