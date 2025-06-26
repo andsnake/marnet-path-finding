@@ -8,6 +8,9 @@ from geopy.distance import geodesic
 
 def load_graph_and_kdtree(filepath, debug=False):
     gdf = gpd.read_file(filepath)
+    # Filter out invalid or null geometries
+    gdf = gdf[gdf.geometry.notnull() & gdf.geometry.is_valid]
+
     G = nx.Graph()
     coords = []
     total_lines = len(gdf)

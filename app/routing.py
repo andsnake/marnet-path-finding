@@ -40,7 +40,7 @@ def find_shortest_path(G, kd_tree, node_coords, start_coords, end_coords):
         G,
         start_node,
         end_node,
-        heuristic=lambda a, b: haversine_heuristic(node_coords[a], node_coords[b]),
+        heuristic=lambda a, b: wrapped_haversine(node_coords[a][0], node_coords[a][1], node_coords[b][0], node_coords[b][1]),
         weight='weight'
     )
 

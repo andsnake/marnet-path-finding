@@ -48,12 +48,16 @@ def route(
     start_node = list(node_coords.keys())[idx_start]
     end_node = list(node_coords.keys())[idx_end]
 
+    start_coords = (start_lon, start_lat)
+    end_coords = (end_lon, end_lat)
+
     try:
-        path_nodes = nx.astar_path(
-            graph, start_node, end_node,
-            heuristic=lambda a, b: wrapped_haversine(a[0], a[1], b[0], b[1]),
-            weight="weight"
-        )
+        path_nodes = find_shortest_path(graph, kdtree, node_coords, start_coords, end_coords)
+#         path_nodes = nx.astar_path(
+#             graph, start_node, end_node,
+#             heuristic=lambda a, b: wrapped_haversine(a[0], a[1], b[0], b[1]),
+#             weight="weight"
+#         )
     except nx.NetworkXNoPath:
         raise HTTPException(status_code=404, detail="No path found between the points")
 
